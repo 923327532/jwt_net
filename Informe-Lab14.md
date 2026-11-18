@@ -77,4 +77,4 @@ Los cuerpos de respuesta están en [pruebas.json](evidencias/pruebas.json) y los
 
 ## Repositorio
 
-La entrega de la Semana 14 se conserva en el repositorio Git local y en el archivo portable `Lab14-Taller.bundle`. El enlace de la Semana 13 acredita el proyecto base. [Repositorio de la Semana 13, commit 17802b4](https://github.com/923327532/.netwithoracle/commit/17802b4885e22c2ba09a6b778f3dc85261856044)
+El código, los scripts SQL y las evidencias están en GitHub. [Repositorio de la Semana 14](https://github.com/923327532/jwt_net). El enlace de la Semana 13 acredita el proyecto base. [Repositorio de la Semana 13, commit 17802b4](https://github.com/923327532/.netwithoracle/commit/17802b4885e22c2ba09a6b778f3dc85261856044)
