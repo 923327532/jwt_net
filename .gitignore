@@ -1,0 +1,17 @@
+bin/
+obj/
+.vs/
+*.user
+appsettings.*.json
+!appsettings.json
+.env
+*.nupkg
+TestResults/
+*.key
+*.key.pub
+*.log
+.docx_extract/
+
+.packages/
+.local/
+Lab14-Taller.bundle

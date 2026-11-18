@@ -1,0 +1,364 @@
+﻿[
+    {
+        "actor":  "Sin token",
+        "metodo":  "POST",
+        "ruta":  "/api/auth/registro",
+        "esperado":  201,
+        "obtenido":  201,
+        "respuesta":  {
+                          "correo":  "prueba-da0fbd2@taller.example",
+                          "rol":  "Recepcionista"
+                      }
+    },
+    {
+        "actor":  "Sin token",
+        "metodo":  "POST",
+        "ruta":  "/api/auth/registro",
+        "esperado":  409,
+        "obtenido":  409,
+        "respuesta":  {
+
+                      }
+    },
+    {
+        "actor":  "Sin token",
+        "metodo":  "POST",
+        "ruta":  "/api/auth/registro",
+        "esperado":  400,
+        "obtenido":  400,
+        "respuesta":  {
+
+                      }
+    },
+    {
+        "actor":  "Correo inexistente",
+        "metodo":  "POST",
+        "ruta":  "/api/auth/login",
+        "esperado":  401,
+        "obtenido":  401,
+        "respuesta":  {
+
+                      }
+    },
+    {
+        "actor":  "Clave incorrecta",
+        "metodo":  "POST",
+        "ruta":  "/api/auth/login",
+        "esperado":  401,
+        "obtenido":  401,
+        "respuesta":  {
+
+                      }
+    },
+    {
+        "actor":  "Recepcionista",
+        "metodo":  "POST",
+        "ruta":  "/api/auth/login",
+        "esperado":  200,
+        "obtenido":  200,
+        "respuesta":  {
+                          "token":  "[omitido]",
+                          "expiracion":  "2026-11-18T23:57:03Z"
+                      }
+    },
+    {
+        "actor":  "JefeTaller",
+        "metodo":  "POST",
+        "ruta":  "/api/auth/login",
+        "esperado":  200,
+        "obtenido":  200,
+        "respuesta":  {
+                          "token":  "[omitido]",
+                          "expiracion":  "2026-11-18T23:57:04Z"
+                      }
+    },
+    {
+        "actor":  "Sin token",
+        "metodo":  "GET",
+        "ruta":  "/api/auth/perfil",
+        "esperado":  401,
+        "obtenido":  401,
+        "respuesta":  {
+
+                      }
+    },
+    {
+        "actor":  "Recepcionista",
+        "metodo":  "GET",
+        "ruta":  "/api/auth/perfil",
+        "esperado":  200,
+        "obtenido":  200,
+        "respuesta":  {
+                          "correo":  "recepcion@taller.example",
+                          "rol":  "Recepcionista"
+                      }
+    },
+    {
+        "actor":  "JefeTaller",
+        "metodo":  "GET",
+        "ruta":  "/api/auth/perfil",
+        "esperado":  200,
+        "obtenido":  200,
+        "respuesta":  {
+                          "correo":  "jefe@taller.example",
+                          "rol":  "JefeTaller"
+                      }
+    },
+    {
+        "actor":  "Sin token",
+        "metodo":  "GET",
+        "ruta":  "/api/vehiculos",
+        "esperado":  401,
+        "obtenido":  401,
+        "respuesta":  {
+
+                      }
+    },
+    {
+        "actor":  "JefeTaller",
+        "metodo":  "POST",
+        "ruta":  "/api/vehiculos",
+        "esperado":  403,
+        "obtenido":  403,
+        "respuesta":  {
+
+                      }
+    },
+    {
+        "actor":  "Recepcionista",
+        "metodo":  "POST",
+        "ruta":  "/api/vehiculos",
+        "esperado":  201,
+        "obtenido":  201,
+        "respuesta":  {
+                          "id":  11,
+                          "placa":  "LDA0FBD2",
+                          "marca":  "Toyota",
+                          "modelo":  "Yaris",
+                          "anio":  2024,
+                          "color":  null,
+                          "clienteNombre":  "Cliente de prueba",
+                          "fechaRegistro":  "2026-11-18"
+                      }
+    },
+    {
+        "actor":  "Recepcionista",
+        "metodo":  "POST",
+        "ruta":  "/api/vehiculos",
+        "esperado":  409,
+        "obtenido":  409,
+        "respuesta":  {
+
+                      }
+    },
+    {
+        "actor":  "Recepcionista",
+        "metodo":  "POST",
+        "ruta":  "/api/vehiculos",
+        "esperado":  400,
+        "obtenido":  400,
+        "respuesta":  {
+
+                      }
+    },
+    {
+        "actor":  "Recepcionista",
+        "metodo":  "GET",
+        "ruta":  "/api/vehiculos",
+        "esperado":  200,
+        "obtenido":  200,
+        "respuesta":  {
+                          "token":  "[omitido]",
+                          "expiracion":  [
+                                             null,
+                                             null,
+                                             null,
+                                             null,
+                                             null,
+                                             null,
+                                             null,
+                                             null,
+                                             null
+                                         ]
+                      }
+    },
+    {
+        "actor":  "JefeTaller",
+        "metodo":  "GET",
+        "ruta":  "/api/vehiculos/11",
+        "esperado":  200,
+        "obtenido":  200,
+        "respuesta":  {
+                          "id":  11,
+                          "placa":  "LDA0FBD2",
+                          "marca":  "Toyota",
+                          "modelo":  "Yaris",
+                          "anio":  2024,
+                          "color":  null,
+                          "clienteNombre":  "Cliente de prueba",
+                          "fechaRegistro":  "2026-11-18"
+                      }
+    },
+    {
+        "actor":  "Recepcionista",
+        "metodo":  "PUT",
+        "ruta":  "/api/vehiculos/11",
+        "esperado":  204,
+        "obtenido":  204,
+        "respuesta":  {
+
+                      }
+    },
+    {
+        "actor":  "Recepcionista",
+        "metodo":  "POST",
+        "ruta":  "/api/ordenes",
+        "esperado":  201,
+        "obtenido":  201,
+        "respuesta":  {
+                          "id":  12,
+                          "vehiculoId":  11,
+                          "vehiculo":  "LDA0FBD2",
+                          "descripcion":  "Revision de frenos",
+                          "estado":  "Pendiente",
+                          "costoEstimado":  150,
+                          "fechaIngreso":  "2026-11-18",
+                          "fechaEntrega":  null,
+                          "tecnico":  null
+                      }
+    },
+    {
+        "actor":  "Recepcionista",
+        "metodo":  "GET",
+        "ruta":  "/api/vehiculos/11/ordenes",
+        "esperado":  200,
+        "obtenido":  200,
+        "respuesta":  {
+                          "id":  12,
+                          "vehiculoId":  11,
+                          "vehiculo":  "LDA0FBD2",
+                          "descripcion":  "Revision de frenos",
+                          "estado":  "Pendiente",
+                          "costoEstimado":  150.00,
+                          "fechaIngreso":  "2026-11-18",
+                          "fechaEntrega":  null,
+                          "tecnico":  null
+                      }
+    },
+    {
+        "actor":  "JefeTaller",
+        "metodo":  "GET",
+        "ruta":  "/api/ordenes?vehiculoId=11",
+        "esperado":  200,
+        "obtenido":  200,
+        "respuesta":  {
+                          "id":  12,
+                          "vehiculoId":  11,
+                          "vehiculo":  "LDA0FBD2",
+                          "descripcion":  "Revision de frenos",
+                          "estado":  "Pendiente",
+                          "costoEstimado":  150.00,
+                          "fechaIngreso":  "2026-11-18",
+                          "fechaEntrega":  null,
+                          "tecnico":  null
+                      }
+    },
+    {
+        "actor":  "Recepcionista",
+        "metodo":  "GET",
+        "ruta":  "/api/ordenes/12",
+        "esperado":  200,
+        "obtenido":  200,
+        "respuesta":  {
+                          "id":  12,
+                          "vehiculoId":  11,
+                          "vehiculo":  "LDA0FBD2",
+                          "descripcion":  "Revision de frenos",
+                          "estado":  "Pendiente",
+                          "costoEstimado":  150.00,
+                          "fechaIngreso":  "2026-11-18",
+                          "fechaEntrega":  null,
+                          "tecnico":  null
+                      }
+    },
+    {
+        "actor":  "Recepcionista",
+        "metodo":  "PUT",
+        "ruta":  "/api/ordenes/12",
+        "esperado":  403,
+        "obtenido":  403,
+        "respuesta":  {
+
+                      }
+    },
+    {
+        "actor":  "JefeTaller",
+        "metodo":  "PUT",
+        "ruta":  "/api/ordenes/12",
+        "esperado":  204,
+        "obtenido":  204,
+        "respuesta":  {
+
+                      }
+    },
+    {
+        "actor":  "JefeTaller",
+        "metodo":  "DELETE",
+        "ruta":  "/api/vehiculos/11",
+        "esperado":  409,
+        "obtenido":  409,
+        "respuesta":  {
+
+                      }
+    },
+    {
+        "actor":  "JefeTaller",
+        "metodo":  "DELETE",
+        "ruta":  "/api/ordenes/12",
+        "esperado":  204,
+        "obtenido":  204,
+        "respuesta":  {
+
+                      }
+    },
+    {
+        "actor":  "JefeTaller",
+        "metodo":  "GET",
+        "ruta":  "/api/ordenes/12",
+        "esperado":  404,
+        "obtenido":  404,
+        "respuesta":  {
+
+                      }
+    },
+    {
+        "actor":  "Recepcionista",
+        "metodo":  "DELETE",
+        "ruta":  "/api/vehiculos/11",
+        "esperado":  403,
+        "obtenido":  403,
+        "respuesta":  {
+
+                      }
+    },
+    {
+        "actor":  "JefeTaller",
+        "metodo":  "DELETE",
+        "ruta":  "/api/vehiculos/11",
+        "esperado":  204,
+        "obtenido":  204,
+        "respuesta":  {
+
+                      }
+    },
+    {
+        "actor":  "Recepcionista",
+        "metodo":  "GET",
+        "ruta":  "/api/vehiculos/11",
+        "esperado":  404,
+        "obtenido":  404,
+        "respuesta":  {
+
+                      }
+    }
+]

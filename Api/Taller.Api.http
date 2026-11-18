@@ -1,0 +1,227 @@
+﻿@baseUrl = http://localhost:5221
+@claveDemo = TallerDemo-S14!2026
+
+### Iniciar sesión como Recepcionista
+# @name recepcion
+POST {{baseUrl}}/api/auth/login
+Content-Type: application/json
+
+{"correo":"recepcion@taller.example","clave":"{{claveDemo}}"}
+
+### Iniciar sesión como JefeTaller
+# @name jefe
+POST {{baseUrl}}/api/auth/login
+Content-Type: application/json
+
+{"correo":"jefe@taller.example","clave":"{{claveDemo}}"}
+
+### Registro público (201; repetir devuelve 409)
+POST {{baseUrl}}/api/auth/registro
+Content-Type: application/json
+
+{"correo":"nuevo@taller.example","clave":"{{claveDemo}}"}
+
+### Perfil autenticado (200)
+GET {{baseUrl}}/api/auth/perfil
+Authorization: Bearer {{recepcion.response.body.$.token}}
+
+### Perfil sin credenciales (401)
+GET {{baseUrl}}/api/auth/perfil
+
+### JefeTaller intenta actualizar un vehículo (403)
+PUT {{baseUrl}}/api/vehiculos/8
+Authorization: Bearer {{jefe.response.body.$.token}}
+Content-Type: application/json
+
+{"id":8,"placa":"X234VWX","marca":"Hyundai","modelo":"Accent","anio":2021,"clienteNombre":"Sofia Rivas"}
+
+### GET todos los vehiculos
+GET {{baseUrl}}/api/vehiculos
+Authorization: Bearer {{recepcion.response.body.$.token}}
+Accept: application/json
+
+### GET vehiculos con filtros
+GET {{baseUrl}}/api/vehiculos?marca=Toyota&anioMin=2020&anioMax=2023
+Authorization: Bearer {{recepcion.response.body.$.token}}
+Accept: application/json
+
+### GET vehiculo por id
+GET {{baseUrl}}/api/vehiculos/1
+Authorization: Bearer {{recepcion.response.body.$.token}}
+Accept: application/json
+
+### GET ordenes de un vehiculo (ruta anidada)
+GET {{baseUrl}}/api/vehiculos/1/ordenes
+Authorization: Bearer {{recepcion.response.body.$.token}}
+Accept: application/json
+
+### GET todas las ordenes
+GET {{baseUrl}}/api/ordenes
+Authorization: Bearer {{recepcion.response.body.$.token}}
+Accept: application/json
+
+### GET ordenes filtradas
+GET {{baseUrl}}/api/ordenes?estado=Pendiente&vehiculoId=1
+Authorization: Bearer {{recepcion.response.body.$.token}}
+Accept: application/json
+
+### GET orden por id
+GET {{baseUrl}}/api/ordenes/1
+Authorization: Bearer {{recepcion.response.body.$.token}}
+Accept: application/json
+
+### POST nuevo vehiculo (201)
+POST {{baseUrl}}/api/vehiculos
+Authorization: Bearer {{recepcion.response.body.$.token}}
+Content-Type: application/json
+
+{
+  "id": 0,
+  "placa": "N999ZZZ",
+  "marca": "Ford",
+  "modelo": "Fiesta",
+  "anio": 2022,
+  "color": "Rojo",
+  "clienteNombre": "Juan Perez",
+  "fechaRegistro": "2025-11-01"
+}
+
+### POST vehiculo placa duplicada (409)
+POST {{baseUrl}}/api/vehiculos
+Authorization: Bearer {{recepcion.response.body.$.token}}
+Content-Type: application/json
+
+{
+  "id": 0,
+  "placa": "P123ABC",
+  "marca": "Ford",
+  "modelo": "Fiesta",
+  "anio": 2022,
+  "clienteNombre": "Otro Cliente"
+}
+
+### POST vehiculo datos invalidos (400)
+POST {{baseUrl}}/api/vehiculos
+Authorization: Bearer {{recepcion.response.body.$.token}}
+Content-Type: application/json
+
+{
+  "id": 0,
+  "placa": "X1",
+  "marca": "",
+  "modelo": "",
+  "anio": 1800,
+  "clienteNombre": ""
+}
+
+### PUT vehiculo (204)
+PUT {{baseUrl}}/api/vehiculos/8
+Authorization: Bearer {{recepcion.response.body.$.token}}
+Content-Type: application/json
+
+{
+  "id": 8,
+  "placa": "X234VWX",
+  "marca": "Hyundai",
+  "modelo": "Accent",
+  "anio": 2021,
+  "color": "Negro",
+  "clienteNombre": "Sofia Rivas",
+  "fechaRegistro": "2025-08-12"
+}
+
+### PUT id ruta distinto al cuerpo (400)
+PUT {{baseUrl}}/api/vehiculos/1
+Authorization: Bearer {{recepcion.response.body.$.token}}
+Content-Type: application/json
+
+{
+  "id": 2,
+  "placa": "P123ABC",
+  "marca": "Toyota",
+  "modelo": "Corolla",
+  "anio": 2021,
+  "clienteNombre": "Carlos Mendoza"
+}
+
+### DELETE vehiculo sin ordenes (204)
+DELETE {{baseUrl}}/api/vehiculos/8
+Authorization: Bearer {{jefe.response.body.$.token}}
+
+### DELETE vehiculo con ordenes (409)
+DELETE {{baseUrl}}/api/vehiculos/1
+Authorization: Bearer {{jefe.response.body.$.token}}
+
+### GET recurso inexistente (404)
+GET {{baseUrl}}/api/vehiculos/9999
+Authorization: Bearer {{recepcion.response.body.$.token}}
+Accept: application/json
+
+### POST nueva orden (201)
+POST {{baseUrl}}/api/ordenes
+Authorization: Bearer {{recepcion.response.body.$.token}}
+Content-Type: application/json
+
+{
+  "id": 0,
+  "vehiculoId": 2,
+  "descripcion": "Cambio de bujias",
+  "estado": "Pendiente",
+  "costoEstimado": 60.00,
+  "fechaIngreso": "2025-11-04",
+  "fechaEntrega": "2025-11-10",
+  "tecnico": "Ana L."
+}
+
+### POST orden con vehiculo inexistente (409)
+POST {{baseUrl}}/api/ordenes
+Authorization: Bearer {{recepcion.response.body.$.token}}
+Content-Type: application/json
+
+{
+  "id": 0,
+  "vehiculoId": 9999,
+  "descripcion": "Orden invalida",
+  "estado": "Pendiente",
+  "costoEstimado": 10.00,
+  "fechaIngreso": "2025-11-04"
+}
+
+### POST orden estado invalido (409)
+POST {{baseUrl}}/api/ordenes
+Authorization: Bearer {{recepcion.response.body.$.token}}
+Content-Type: application/json
+
+{
+  "id": 0,
+  "vehiculoId": 1,
+  "descripcion": "Orden con estado malo",
+  "estado": "Inventado",
+  "costoEstimado": 10.00,
+  "fechaIngreso": "2025-11-04"
+}
+
+### PUT orden (204)
+PUT {{baseUrl}}/api/ordenes/3
+Authorization: Bearer {{jefe.response.body.$.token}}
+Content-Type: application/json
+
+{
+  "id": 3,
+  "vehiculoId": 3,
+  "descripcion": "Diagnostico de motor (check engine)",
+  "estado": "Completada",
+  "costoEstimado": 80.00,
+  "fechaIngreso": "2025-10-20",
+  "fechaEntrega": "2025-11-04",
+  "tecnico": "Roberto M."
+}
+
+### DELETE orden (204)
+DELETE {{baseUrl}}/api/ordenes/9
+Authorization: Bearer {{jefe.response.body.$.token}}
+
+### GET orden inexistente (404)
+GET {{baseUrl}}/api/ordenes/9999
+Authorization: Bearer {{recepcion.response.body.$.token}}
+Accept: application/json

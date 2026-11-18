@@ -1,0 +1,20 @@
+﻿{
+    "Recepcionista":  {
+                          "sub":  "1",
+                          "email":  "recepcion@taller.example",
+                          "rol":  "Recepcionista",
+                          "nbf":  1795044423,
+                          "exp":  1795046223,
+                          "iss":  "Taller.Api",
+                          "aud":  "Taller.Cliente"
+                      },
+    "JefeTaller":  {
+                       "sub":  "2",
+                       "email":  "jefe@taller.example",
+                       "rol":  "JefeTaller",
+                       "nbf":  1795044424,
+                       "exp":  1795046224,
+                       "iss":  "Taller.Api",
+                       "aud":  "Taller.Cliente"
+                   }
+}
